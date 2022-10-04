@@ -30,7 +30,7 @@ poetry add waitress
 
 Щоб подивитись результат нашої програми, нам потрібно заупустити сервер WSGI:
 
-```waitress-serve --host 127.0.0.1 server:app```
+```waitress-serve --host 127.0.0.1 server:laba_4_sol```
 
 За допомогою декоратора ```@app.route("/api/v1/hello-world-15")``` реалізуємо адресу.
 Перейшовши на неї, бачимо текст "hello world 15"
