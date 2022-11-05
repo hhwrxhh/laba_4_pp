@@ -1,0 +1,1479 @@
+openapi: 3.0.0
+info:
+  title: Pharmacy
+  description: null
+  version: 0.0.1
+servers:
+  - url: http://localhost:5000/api/v1
+    description: The main server
+tags:
+  - name: user
+    description: Everything about user
+  - name: order
+    description: history of your orders and cart
+  - name: drug
+    description: About drug
+  - name: category
+    description: category and subcategory
+  - name: storage
+    description: storage
+  - name: producer
+    description: producer
+paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: register user
+      operationId: register_user
+      requestBody:
+        description: register user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to register
+        '404':
+          description: No page found
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: logs the current user into system
+      operationId: login_user
+      parameters:
+        - name: login
+          in: query
+          description: The login to sing in
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: ivalid login/password supplied
+        '404':
+          description: page not found
+  /user/{user_id}:
+    get:
+      tags:
+        - user
+      summary: Get user by user_id
+      description: ''
+      operationId: get_user_by_id
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Invalid person_id supplied
+        '404':
+          description: User not found
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: update_user
+      parameters:
+        - name: user_id
+          in: path
+          description: user_id that need to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '403':
+          description: Forbidden to access
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can be done by the logged in user and admin.
+      operationId: delete_user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid person_od supplied
+        '404':
+          description: User not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+        - admin_auth:
+            - write:all
+            - read:all
+  /order:
+    get:
+      tags:
+        - order
+      summary: Return all orders that exist
+      operationId: get_all_orders
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order_array'
+        '404':
+          description: orders not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+    post:
+      tags:
+        - order
+      summary: create order
+      operationId: create_order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to make order
+        '404':
+          description: No page found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+  /order/{order_id}:
+    get:
+      tags:
+        - order
+      summary: Get order by order_id
+      description: ''
+      operationId: get_order_by_id
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+        '400':
+          description: Invalid order supplied
+        '404':
+          description: Order not found
+    put:
+      tags:
+        - order
+      summary: Update order
+      description: This can only be done by the logged in user.
+      operationId: update_order
+      parameters:
+        - name: order_id
+          in: path
+          description: order_id that need to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent order in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+        '403':
+          description: Forbidden to access
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+    delete:
+      tags:
+        - order
+      summary: Delete order
+      description: This can be done by the logged in user.
+      operationId: delete_order
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid order supplied
+        '404':
+          description: order not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+  /cart:
+    get:
+      tags:
+        - cart
+      summary: Return all records that exist in cart
+      operationId: get_all_cart
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart_array'
+        '404':
+          description: cart  not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+    post:
+      tags:
+        - order
+      summary: create cart
+      operationId: create_cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to make cart
+        '404':
+          description: No page found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+  /cart/{cart_id}:
+    get:
+      tags:
+        - order
+      summary: Get records by cart_id
+      description: ''
+      operationId: get_cart_by_id
+      parameters:
+        - name: cart_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart'
+        '400':
+          description: Invalid cart supplied
+        '404':
+          description: Cart not found
+    put:
+      tags:
+        - order
+      summary: Update cart
+      description: This can only be done by the logged in user.
+      operationId: update_cart
+      parameters:
+        - name: cart_id
+          in: path
+          description: cart_id that need to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent cart
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cart'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart'
+        '403':
+          description: Forbidden to access
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+    delete:
+      tags:
+        - order
+      summary: Delete cart
+      description: This can be done by the logged in user
+      operationId: delete_cart
+      parameters:
+        - name: cart_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid cart supplied
+        '404':
+          description: cart not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+  /order/add_cart/{order_id}/{cart_id}:
+    post:
+      tags:
+        - order
+      summary: adding new records form cart to order
+      description: This can only be done by the logged in user.
+      operationId: update_order_list
+      parameters:
+        - name: cart_id
+          in: path
+          description: cart_id that need to be added to  order
+          required: true
+          schema:
+            type: integer
+        - name: order_id
+          in: path
+          description: order_id to which user will be added his cart
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: adding  new cart to  existent order
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+        '400':
+          description: Invalid order/cart supplied
+        '404':
+          description: Page Not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+    delete:
+      tags:
+        - order
+      summary: Delete cart from order
+      description: This can be done by the logged in user.
+      operationId: delete_cart_order
+      parameters:
+        - name: cart_id
+          in: path
+          description: cart_id that need to be deleted in order
+          required: true
+          schema:
+            type: integer
+        - name: order_id
+          in: path
+          description: order_id in which users will be delete the cart
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid order or cart supplied
+        '404':
+          description: order not found
+      security:
+        - user_auth:
+            - write:users
+            - read:users
+  /category:
+    get:
+      tags:
+        - category
+      summary: Return all categories that exist
+      operationId: get_all_category
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categories'
+        '404':
+          description: category  not found
+    post:
+      tags:
+        - category
+      summary: create/add new category
+      description: access to this operation has only admin
+      operationId: create_category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+  /category/{category_id}:
+    put:
+      tags:
+        - category
+      summary: Update category
+      description: This can only be done by the admin
+      operationId: update_category
+      parameters:
+        - name: category_id
+          in: path
+          description: category_id that need to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent category in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '403':
+          description: Forbidden to access
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - category
+      summary: delete the choosen category
+      description: access to this operation has only admin
+      operationId: delete_category
+      parameters:
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '400':
+          description: Invalid category supplied
+        '404':
+          description: category not found
+      security:
+        - admin_auth:
+            - write_category
+            - read_category
+  /category/sub_category:
+    get:
+      tags:
+        - category
+      summary: Return all subcategories
+      operationId: get_subcategories
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_categories'
+        '404':
+          description: subcategory not found
+    post:
+      tags:
+        - category
+      summary: create/add new sub_category
+      description: access to this operation has only admin
+      operationId: create_sub_category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sub_category'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_category'
+      security:
+        - admin_auth:
+            - write_category
+            - read_category
+  /category/subcategory/{sub_category_id}:
+    put:
+      tags:
+        - category
+      summary: Update subcategory
+      description: This can only be done by the admin
+      operationId: update_subcategory
+      parameters:
+        - name: sub_category_id
+          in: path
+          description: sub_category_id that need to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent subcategory in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sub_category'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_category'
+        '403':
+          description: Forbidden to access
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - category
+      summary: delete the choosen sub_category
+      description: access to this operation has only admin
+      operationId: delete_sub_category
+      parameters:
+        - name: sub_category_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: string
+        '400':
+          description: Invalid sub_category supplied
+        '404':
+          description: sub_category not found
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+  /category/sub_category/undosed/{sub_category_id}:
+    get:
+      tags:
+        - category
+      summary: Return the page with drugs that belongs to sub_category
+      operationId: get_drugs_by_sub_id_dosed
+      parameters:
+        - name: sub_category_id
+          in: path
+          required: true
+          description: id of subcategory
+          schema:
+            type: integer
+            format: int32
+          example: 12
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/undosed_array'
+        '404':
+          description: Page not found
+  /category/sub_category/dosed/{sub_category_id}:
+    get:
+      tags:
+        - category
+      summary: Return the page with drugs that belongs to sub_category
+      operationId: get_drugs_by_sub_id_undosed
+      parameters:
+        - name: sub_category_id
+          in: path
+          required: true
+          description: id of subcategory
+          schema:
+            type: integer
+            format: int32
+          example: 12
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dosed_array'
+        '404':
+          description: Page not found
+  /drug/add/dosed:
+    post:
+      tags:
+        - drug
+      summary: adding dosed drug
+      operationId: add_dosed_drug
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dosed'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to add
+        '404':
+          description: No page found
+      security:
+        - admin_auth:
+            - write:users
+            - read:users
+  /drug/add/undosed:
+    post:
+      tags:
+        - drug
+      summary: adding  undosed drug
+      operationId: add_undosed_drug
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/undosed'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to add
+        '404':
+          description: No page found
+      security:
+        - admin_auth:
+            - write:users
+            - read:users
+  /drug/undosed/{undosed_id}:
+    get:
+      tags:
+        - drug
+      summary: return the page that contains info about choosed drug
+      operationId: get_drug_by_undosed_id
+      parameters:
+        - name: undosed_id
+          in: path
+          required: true
+          description: id of undosed
+          schema:
+            type: string
+          example: 12AS98ER12
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/undosed'
+        '404':
+          description: Drug not found
+    put:
+      tags:
+        - drug
+      summary: Update undosed
+      description: This can only be done by the admin
+      operationId: update_undosed
+      parameters:
+        - name: undosed_id
+          in: path
+          description: undosed_id that need to be updated
+          required: true
+          schema:
+            type: string
+            example: 12AS98ER12
+      requestBody:
+        description: Update an existent undosed in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/undosed'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/undosed'
+        '403':
+          description: Forbidden to access
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - drug
+      summary: delete drug by id
+      operationId: delete_drug_by_undosed_id
+      parameters:
+        - name: undosed_id
+          in: path
+          required: true
+          description: id of undosed
+          schema:
+            type: string
+          example: 12AS98ER12
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: string
+        '404':
+          description: Drug not found
+      security:
+        - admin_auth:
+            - write:users
+            - read:users
+  /drug/dosed/{dosed_id}:
+    get:
+      tags:
+        - drug
+      summary: return the page that contains info about choosed drug
+      operationId: get_drug_by_dosed_id
+      parameters:
+        - name: dosed_id
+          in: path
+          required: true
+          description: id of dosed
+          schema:
+            type: string
+          example: 12AS98ER99
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dosed'
+        '404':
+          description: Drug not found
+    put:
+      tags:
+        - drug
+      summary: Update dosed
+      description: This can only be done by the admin
+      operationId: update_dosed
+      parameters:
+        - name: dosed_id
+          in: path
+          description: dosed_id that need to be updated
+          required: true
+          schema:
+            type: string
+            example: 12AS98ER12
+      requestBody:
+        description: Update an existent dosed in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dosed'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dosed'
+        '403':
+          description: Forbidden to access
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - drug
+      summary: delete drug by id
+      operationId: delete_drug_by_dosed_id
+      parameters:
+        - name: dosed_id
+          in: path
+          required: true
+          description: id of dosed
+          schema:
+            type: string
+          example: 12AS98ER12
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: string
+        '404':
+          description: Drug not found
+      security:
+        - admin_auth:
+            - write:users
+            - read:users
+  /storage:
+    post:
+      tags:
+        - storage
+      summary: adding storage
+      operationId: add_storage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/medicine_has_storage'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to add
+        '404':
+          description: No page found
+      security:
+        - admin_auth:
+            - write:users
+            - read:users
+  /storage/{storage_id}:
+    get:
+      tags:
+        - storage
+      summary: Get storage by storage_id
+      description: ''
+      operationId: get_storage_by_id
+      parameters:
+        - name: storage_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medicine_has_storage'
+        '400':
+          description: Invalid storage_id supplied
+        '404':
+          description: storage not found
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    put:
+      tags:
+        - storage
+      summary: Update storage dosed
+      description: This can only be done by the admin
+      operationId: update_storage
+      parameters:
+        - name: storage_id
+          in: path
+          description: storage_id that need to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent storage  in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/medicine_has_storage'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medicine_has_storage'
+        '403':
+          description: Forbidden to access
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - storage
+      summary: delete the choosen storage
+      description: access to this operation has only admin
+      operationId: delete_storage
+      parameters:
+        - name: storage_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/medicine_has_storage'
+        '400':
+          description: Invalid medicine_has_storage supplied
+        '404':
+          description: medicine_has_storage not found
+      security:
+        - admin_auth:
+            - write_category
+            - read_category
+  /producer:
+    post:
+      tags:
+        - producer
+      summary: adding producer
+      operationId: add_producer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/producer'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden to add
+        '404':
+          description: No page found
+      security:
+        - admin_auth:
+            - write:users
+            - read:users
+  /producer/{producer_id}:
+    put:
+      tags:
+        - producer
+      summary: Update producer
+      description: This can only be done by the admin
+      operationId: update_producer
+      parameters:
+        - name: producer_id
+          in: path
+          description: producer_id that need to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent producer in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/producer'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/producer'
+        '403':
+          description: Forbidden to access
+      security:
+        - admin_auth:
+            - write:all
+            - read:all
+    delete:
+      tags:
+        - producer
+      summary: delete the choosen producer
+      description: access to this producer has only admin
+      operationId: delete_producery
+      parameters:
+        - name: producer_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/producer'
+        '400':
+          description: Invalid producer supplied
+        '404':
+          description: producer not found
+      security:
+        - admin_auth:
+            - write_category
+            - read_category
+components:
+  schemas:
+    user:
+      required:
+        - first_name
+        - last_name
+        - phone
+        - password
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 11
+        first_name:
+          type: string
+          minLength: 3
+          maxLength: 20
+          example: Ali
+        last_name:
+          type: string
+          minLength: 3
+          maxLength: 20
+          example: Horch
+        phone:
+          type: string
+          maxLength: 20
+          example: +380 (50) 123 45 67
+        email:
+          type: string
+          format: email
+          example: project@gmail.com
+        password:
+          type: string
+          format: password
+          minLength: 4
+          maxLength: 45
+          example: 123asdf89_1
+    order:
+      required:
+        - fk_cart_id
+        - date_of_purchase
+        - total
+      type: object
+      properties:
+        order_id:
+          type: integer
+          format: int64
+          minimum: 0
+        fk_cart_id:
+          $ref: '#/components/schemas/cart'
+        fk_user_id:
+          $ref: '#/components/schemas/user'
+        date_of_purchase:
+          type: string
+          format: date
+          example: 2017-07-21T00:00:00.000Z
+        total:
+          type: number
+          format: double
+          example: 1090.12
+    order_array:
+      type: array
+      items:
+        $ref: '#/components/schemas/order'
+    cart:
+      type: object
+      properties:
+        cart_id:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 10
+        fk_dosed_id:
+          $ref: '#/components/schemas/dosed'
+        fk_undosed_id:
+          $ref: '#/components/schemas/undosed'
+    cart_array:
+      type: array
+      items:
+        $ref: '#/components/schemas/cart'
+    dosed:
+      required:
+        - dosed_name
+        - dosed_description
+        - dosed_form
+        - physical_form
+        - unit_of_measurement
+        - net_weight
+        - for_a_prescription
+        - fk_producer_id
+      type: object
+      properties:
+        dosed_id:
+          type: string
+          example: 12AS98ER12
+          description: the code of product
+        dosed_name:
+          type: string
+          maxLength: 30
+          example: Nurofen
+        dosed_description:
+          type: string
+          description: the description of dosed drug
+        dosed_form:
+          type: string
+          enum:
+            - pills
+            - capsules
+            - dragee
+            - powders
+            - granules
+            - solutions
+            - infusions
+            - tinctures
+            - liquid extracts
+            - emulsions
+            - mixtures
+          example: pills
+        physical_form:
+          type: string
+          enum:
+            - solid
+            - liquid
+          example: solid
+        the number of blisters:
+          type: integer
+          maximum: 15
+          example: 5
+          description: it is required for pills, capsules
+        quantity_in_package:
+          type: integer
+          example: 100
+          description: it is required for pills, capsules, dragee, granules?
+        net_weight:
+          type: number
+          format: double
+          example: 10.5
+          description: >-
+            the weight of product without the addition of the packing or
+            container weight
+        unit_of_measurement:
+          type: string
+          enum:
+            - l
+            - ml
+            - mg
+            - gr
+          example: gr
+        for_a_prescription:
+          type: string
+          enum:
+            - 'true'
+            - 'false'
+          example: 'true'
+        dosed_price:
+          type: number
+          format: double
+          example: 38.5
+        fk_sub_category_id:
+          $ref: '#/components/schemas/sub_category'
+        fk_producer_id:
+          $ref: '#/components/schemas/producer'
+    dosed_array:
+      type: array
+      items:
+        $ref: '#/components/schemas/dosed'
+    undosed:
+      required:
+        - undosed_name
+        - undosed_description
+        - undosed_form
+        - physical_form
+        - unit_of_measurement
+        - net_weight
+        - for_a_prescription
+        - fk_producer_id
+      type: object
+      properties:
+        undosed_id:
+          type: string
+          format: int64
+          minimum: 0
+          example: 98AS98ER98
+          description: the code of product
+        undosed_name:
+          type: string
+          maxLength: 30
+          example: Lacalut
+        undosed_description:
+          type: string
+          description: the description of dosed drug
+        undosed_form:
+          type: string
+          enum:
+            - ointments
+            - linimets
+            - pastes
+            - suppositories
+            - plasters
+          example: pastes
+        physical_form:
+          type: string
+          enum:
+            - semi-solid
+            - gaseous
+          example: semi_solid
+        net_weight:
+          type: number
+          format: double
+          example: 50.5
+          description: >-
+            the weight of product without the addition of the packing or
+            container weight
+        unit_of_measurement:
+          type: string
+          enum:
+            - l
+            - ml
+            - mg
+            - gr
+          example: gr
+        for_a_prescription:
+          type: string
+          enum:
+            - 'true'
+            - 'false'
+          example: 'false'
+        undosed_price:
+          type: number
+          format: double
+          example: 51.5
+        fk_sub_category_id:
+          $ref: '#/components/schemas/sub_category'
+        fk_producer_id:
+          $ref: '#/components/schemas/producer'
+    undosed_array:
+      type: array
+      items:
+        $ref: '#/components/schemas/undosed'
+    medicine_has_storage:
+      required:
+        - fk_undosed_id
+        - fk_dosed_id
+        - quantity
+        - valid_until
+      type: object
+      properties:
+        storage_id:
+          example: 2-D-5
+          description: row-column-shelf
+        fk_undosed_id:
+          $ref: '#/components/schemas/undosed'
+        fk_dosed_id:
+          $ref: '#/components/schemas/dosed'
+        quantity:
+          type: integer
+          example: 30
+          description: the number of packages in storages
+    producer:
+      required:
+        - producing_company
+        - producing_country
+      type: object
+      properties:
+        producer_id:
+          type: integer
+          format: int64
+          example: 11
+        producing_company:
+          type: string
+          example: Helsker
+        producing_country:
+          type: string
+          example: United Kingdom
+    sub_category:
+      required:
+        - sub_category_name
+        - fk_category_id
+      type: object
+      properties:
+        sub_category_id:
+          type: integer
+          example: 12
+        sub_category_name:
+          type: string
+          maxLength: 30
+          example: Nervous System
+        fk_category_id:
+          $ref: '#/components/schemas/category'
+    sub_categories:
+      type: array
+      items:
+        $ref: '#/components/schemas/sub_category'
+    category:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          example: 13
+        category_name:
+          type: string
+          maxLength: 30
+          example: Drugs
+    categories:
+      type: array
+      items:
+        $ref: '#/components/schemas/category'
+  securitySchemes:
+    user_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:users: modify users
+            read:users: read users
+    admin_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:all: modify all
+            read:all: modify all
