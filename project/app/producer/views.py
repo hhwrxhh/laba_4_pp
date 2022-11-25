@@ -3,16 +3,20 @@ from flask import request, jsonify
 from .models import Producer
 from .schema import ProducerSchema
 from imports import *
+from admin_dec import *
 
 
 @app.route('/producer', methods=['POST'])
+@jwt_required()
+@admin_required
 def producer_post():
     session = Session()
     try:
-        rpoducer_data = ProducerSchema().load(request.json)
+        producer_data = ProducerSchema().load(request.json)
     except ValidationError as e:
         rv = dict({'message': e.normalized_messages()})
         return rv, 400, {'content-type': 'application/json'}
+
     if request.method == 'POST':
         try:
             my_post = Producer(**request.json)
@@ -30,6 +34,8 @@ def producer_post():
 
 
 @app.route('/producer/<id>', methods=['PUT', 'DELETE'])
+@jwt_required()
+@admin_required
 def producer_pd(id):
     session = Session()
     producer_data = session.query(Producer).get(id)

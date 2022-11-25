@@ -10,11 +10,18 @@
 			"item": [
 				{
 					"name": "get dosed by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/drug/dosed/29",
+							"raw": "http://127.0.0.1:5000/drug/dosed/4",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -26,7 +33,7 @@
 							"path": [
 								"drug",
 								"dosed",
-								"29"
+								"4"
 							]
 						}
 					},
@@ -34,20 +41,28 @@
 				},
 				{
 					"name": "delete dosed by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "DELETE",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5NjE2MiwianRpIjoiNjA2MGMzMTMtZjVmMy00YWExLThmZjItODA2MzQ3MjNjOWMyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJuYmYiOjE2NjkyOTYxNjIsImV4cCI6MTY2OTI5NzA2Mn0.0ySucJSQ-DMzJPfKoPE9HOYT3Z8FKxSoFch7pTT-9uc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": ""
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/drug/dosed/12",
+							"raw": "http://127.0.0.1:5000/drug/dosed/3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -59,7 +74,7 @@
 							"path": [
 								"drug",
 								"dosed",
-								"12"
+								"3"
 							]
 						}
 					},
@@ -68,11 +83,21 @@
 				{
 					"name": "add new drug",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMTMyMywianRpIjoiNTQxMTNmZjgtM2JhOS00MDMxLWFkYmEtMjMwMDBlMzliNmE5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJuYmYiOjE2Njk0MTEzMjMsImV4cCI6MTY2OTQxMjIyM30.Hmt_9zuz5V5Jzf1Y-YUcwzCUAtgC18LgAfbvOcn9z6U",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dosed_name\": \"Nurofen222222\",\r\n    \"dosed_description\": \"Nurofen asdhfkashkjh\",\r\n    \"dosed_form\": \"pills\",\r\n    \"physical_form\": \"solid\",\r\n    \"the_number_of_blisters\": 2,\r\n    \"quantity_in_package\": 10,\r\n    \"net_weight\": 100,\r\n    \"unit_of_measurement\": \"mg\",\r\n    \"for_a_prescription\": \"true\",\r\n    \"dosed_price\": 123.1,\r\n    \"fk_producer_id\": 2,\r\n    \"fk_sub_category_id\": 1,\r\n    \"fk_user_id\": 6\r\n}",
+							"raw": "{\r\n    \"dosed_name\": \"drug_dosed_2\",\r\n    \"dosed_description\": \"drug_dosed_description_2\",\r\n    \"dosed_form\": \"pills\",\r\n    \"physical_form\": \"solid\",\r\n    \"the_number_of_blisters\": 2,\r\n    \"quantity_in_package\": 10,\r\n    \"net_weight\": 100,\r\n    \"unit_of_measurement\": \"mg\",\r\n    \"for_a_prescription\": \"true\",\r\n    \"dosed_price\": 123.1,\r\n    \"fk_producer_id\": 1,\r\n    \"fk_sub_category_id\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,6 +118,49 @@
 								"drug",
 								"add",
 								"dosed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change the dosed drug",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMTMyMywianRpIjoiNTQxMTNmZjgtM2JhOS00MDMxLWFkYmEtMjMwMDBlMzliNmE5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJuYmYiOjE2Njk0MTEzMjMsImV4cCI6MTY2OTQxMjIyM30.Hmt_9zuz5V5Jzf1Y-YUcwzCUAtgC18LgAfbvOcn9z6U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dosed_description\": \"DOSED_2 DOSED_2 DOSED_2\",\r\n    \"dosed_name\": \"DOSED_2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/drug/dosed/4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"drug",
+								"dosed",
+								"4"
 							]
 						}
 					},
@@ -229,11 +297,21 @@
 				{
 					"name": "add new cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_dosed_id\": 15,\r\n    \"fk_user_id\": 9\r\n\r\n}",
+							"raw": "{\r\n    \"fk_dosed_id\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -260,11 +338,21 @@
 				{
 					"name": "delete cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 6\r\n}",
+							"raw": "{\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -272,7 +360,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/cart/10",
+							"raw": "http://127.0.0.1:5000/cart/7",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -283,7 +371,7 @@
 							"port": "5000",
 							"path": [
 								"cart",
-								"10"
+								"7"
 							]
 						}
 					},
@@ -292,11 +380,21 @@
 				{
 					"name": "change the cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7,\r\n    \"fk_dosed_id\": 29\r\n}",
+							"raw": "{\r\n    \"fk_dosed_id\": 4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,7 +402,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/cart/2",
+							"raw": "http://127.0.0.1:5000/cart/7",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -315,7 +413,7 @@
 							"port": "5000",
 							"path": [
 								"cart",
-								"2"
+								"7"
 							]
 						}
 					},
@@ -327,11 +425,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7\r\n}",
+							"raw": "{\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,7 +447,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/cart/2",
+							"raw": "http://127.0.0.1:5000/cart/7",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -350,7 +458,7 @@
 							"port": "5000",
 							"path": [
 								"cart",
-								"2"
+								"7"
 							]
 						}
 					},
@@ -362,11 +470,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 6\r\n}",
+							"raw": "{\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -398,11 +516,21 @@
 				{
 					"name": "make order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7,\r\n    \"fk_cart_id\": 12,\r\n    \"date_of_purchase\": \"2022-09-09\"\r\n}",
+							"raw": "{\r\n    \"fk_cart_id\": 8,\r\n    \"date_of_purchase\": \"2022-09-09\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,11 +557,21 @@
 				{
 					"name": "change order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7,\r\n    \"fk_cart_id\": 12\r\n}",
+							"raw": "{\r\n    \"fk_cart_id\": 7\r\n   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -441,7 +579,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/order/11",
+							"raw": "http://127.0.0.1:5000/order/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -452,7 +590,7 @@
 							"port": "5000",
 							"path": [
 								"order",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -464,11 +602,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7\r\n}",
+							"raw": "{\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -476,7 +624,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/order/11",
+							"raw": "http://127.0.0.1:5000/order/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -487,7 +635,7 @@
 							"port": "5000",
 							"path": [
 								"order",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -496,11 +644,21 @@
 				{
 					"name": "delete order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7\r\n}",
+							"raw": "{\r\n   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -508,7 +666,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/order/11",
+							"raw": "http://127.0.0.1:5000/order/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -519,7 +677,7 @@
 							"port": "5000",
 							"path": [
 								"order",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -531,11 +689,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTQxMjczOCwianRpIjoiNzc1MmEzNGItMzg4Yi00NjU5LWI3YzktOTk1MWJhOTk1YWUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8zQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTQxMjczOCwiZXhwIjoxNjY5NDEzNjM4fQ.LANN3d4QiVRfADOamhwMmk7I01RYK0BoyWwYV3w1048",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fk_user_id\": 7\r\n}",
+							"raw": "{\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -571,7 +739,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"test_user_1\",\r\n    \"last_name\": \"user_1\",\r\n    \"phone\": \"12345\",\r\n    \"email\": \"test_user@gmail.com\",\r\n    \"password\": \"test_user_1\"\r\n}",
+							"raw": "{\r\n    \"first_name\": \"test_user_3\",\r\n    \"last_name\": \"test_user_3\",\r\n    \"phone\": \"1234567\",\r\n    \"email\": \"test_user_3@gmail.com\",\r\n    \"password\": \"test_user_3\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -597,11 +765,33 @@
 				},
 				{
 					"name": "get user by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5NDY5OSwianRpIjoiNWI0NmY1ZjMtY2RlYS00YmZhLTk5MzQtZWFlMGUxY2ZkNmQzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8xQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTI5NDY5OSwiZXhwIjoxNjY5Mjk1NTk5fQ.UkIx6tXvFZNn9cCqW64ZJHYbTMk8quwZGZJiYYle9Oo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/user/24",
+							"raw": "http://127.0.0.1:5000/user/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -612,7 +802,7 @@
 							"port": "5000",
 							"path": [
 								"user",
-								"24"
+								"2"
 							]
 						}
 					},
@@ -621,10 +811,20 @@
 				{
 					"name": "delete user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5NDMxMywianRpIjoiZmJlZWJiOTYtMTg1NS00Njc4LWEzY2EtNzQ2YjBmYTE3ZmUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8xQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTI5NDMxMywiZXhwIjoxNjY5Mjk1MjEzfQ.-JAlionPaeuh60lIuXUfqqXdWW_9iso2dVuZC6pmU0k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/user/24",
+							"raw": "http://127.0.0.1:5000/user/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -635,7 +835,7 @@
 							"port": "5000",
 							"path": [
 								"user",
-								"24"
+								"1"
 							]
 						}
 					},
@@ -644,6 +844,16 @@
 				{
 					"name": "change user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5Mzc2MywianRpIjoiODAxMGUxZDItZDc0MC00MjNmLWI0NjEtOGFiY2ZhZGZkMGI5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlcl8xQGdtYWlsLmNvbSIsIm5iZiI6MTY2OTI5Mzc2MywiZXhwIjoxNjY5Mjk0NjYzfQ.-HeD0l5mHIdgANyr7PAuptHBkVDNtyHPaCxMqU5Wz6U",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -656,7 +866,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/user/25",
+							"raw": "http://127.0.0.1:5000/user/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -667,7 +877,42 @@
 							"port": "5000",
 							"path": [
 								"user",
-								"25"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"password\": \"test_user_3\",\r\n   \"email\": \"test_user_3@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/user/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"login"
 							]
 						}
 					},
@@ -707,11 +952,21 @@
 						{
 							"name": "add new category",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5NjE2MiwianRpIjoiNjA2MGMzMTMtZjVmMy00YWExLThmZjItODA2MzQ3MjNjOWMyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJuYmYiOjE2NjkyOTYxNjIsImV4cCI6MTY2OTI5NzA2Mn0.0ySucJSQ-DMzJPfKoPE9HOYT3Z8FKxSoFch7pTT-9uc",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"category_name\": \"hello\"\r\n}",
+									"raw": "{\r\n    \"category_name\": \"category_1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -832,11 +1087,21 @@
 						{
 							"name": "post new subcategory",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5NjE2MiwianRpIjoiNjA2MGMzMTMtZjVmMy00YWExLThmZjItODA2MzQ3MjNjOWMyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJuYmYiOjE2NjkyOTYxNjIsImV4cCI6MTY2OTI5NzA2Mn0.0ySucJSQ-DMzJPfKoPE9HOYT3Z8FKxSoFch7pTT-9uc",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"fk_category_id\": 10,\r\n    \"sub_category_name\": \"hellloo\"\r\n}",
+									"raw": "{\r\n    \"fk_category_id\": 1,\r\n    \"sub_category_name\": \"subcategory_1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -963,11 +1228,21 @@
 				{
 					"name": "add new producer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2OTI5NjE2MiwianRpIjoiNjA2MGMzMTMtZjVmMy00YWExLThmZjItODA2MzQ3MjNjOWMyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJuYmYiOjE2NjkyOTYxNjIsImV4cCI6MTY2OTI5NzA2Mn0.0ySucJSQ-DMzJPfKoPE9HOYT3Z8FKxSoFch7pTT-9uc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"producing_company\": \"12312\",\r\n    \"producing_country\": \"12312\"\r\n}",
+							"raw": "{\r\n    \"producing_company\": \"company_1\",\r\n    \"producing_country\": \"country_1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1029,7 +1304,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/producer/4",
+							"raw": "http://127.0.0.1:5000/producer/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1040,7 +1315,7 @@
 							"port": "5000",
 							"path": [
 								"producer",
-								"4"
+								"2"
 							]
 						}
 					},

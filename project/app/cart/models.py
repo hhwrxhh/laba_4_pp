@@ -10,8 +10,7 @@ class Cart(db.Model):
                             ForeignKey("dosed.dosed_id", ondelete='RESTRICT'),
                             nullable=True, default=None)
     fk_user_id = db.Column(Integer,
-                           ForeignKey("user.user_id", ondelete='CASCADE'),
-                           primary_key=True,
+                           ForeignKey("user.user_id", ondelete='RESTRICT'),
                            nullable=False)
 
     dosed = sqlalchemy.orm.relationship('Dosed', backref='dosed_')

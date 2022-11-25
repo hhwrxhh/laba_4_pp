@@ -4,9 +4,13 @@ from .models import Category, SubCategory
 from .schema import CategorySchema, SubCategorySchema
 from .schema import SubCategorySchemaUpdate
 from imports import *
+from admin_dec import *
+
 
 
 @app.route('/category', methods=['POST'])
+@jwt_required()
+@admin_required
 def category_post():
     session = Session()
     try:
@@ -46,6 +50,8 @@ def category_get():
 
 
 @app.route('/category/<id>', methods=['PUT', 'DELETE', 'GET'])
+@jwt_required()
+@admin_required
 def category_pdg(id):
     session = Session()
     category_data = session.query(Category).get(id)
@@ -78,6 +84,8 @@ def category_pdg(id):
 
 
 @app.route('/category/subcategory', methods=['POST'])
+@jwt_required()
+@admin_required
 def subcategory_post_get():
     session = Session()
     try:
@@ -134,6 +142,8 @@ def subcategory_get():
 
 @app.route('/category/subcategory/<id>',
            methods=['PUT', 'DELETE'])
+@jwt_required()
+@admin_required
 def subcategory_pdg(id):
     session = Session()
     subcategory_data = session.query(SubCategory).filter_by(

@@ -30,7 +30,6 @@ class DosedSchema(ma.Schema):
 
     fk_producer_id = fields.Integer(load_only=True, required=True)
     fk_sub_category_id = fields.Integer(load_only=True, required=True)
-    fk_user_id = fields.Integer(load_only=True, required=True)
 
     sub_category = fields.Nested(SubCategorySchema, dump_only=True)
     producer = fields.Nested(ProducerSchema, dump_only=True)
@@ -41,7 +40,6 @@ class DosedSchemaUpdate(ma.Schema):
                             validate=validate.Length(min=4, max=30))
     dosed_description = fields.Str(required=True,
                                    validate=validate.Length(min=20, max=500))
-    fk_user_id = fields.Integer(load_only=True, required=True)
 
 
 class DosedSchemaGet(ma.Schema):
@@ -49,7 +47,6 @@ class DosedSchemaGet(ma.Schema):
     dosed_description = fields.Str(dump_only=True)
     dosed_price = fields.Float(dump_only=True)
 
-    fk_user_id = fields.Integer(load_only=True, required=True)
 
 
 class UserGetId(ma.Schema):
