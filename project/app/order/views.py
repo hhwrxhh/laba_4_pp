@@ -5,6 +5,7 @@ from .schema import OrderSchema, OrderSchemaUpdate
 from .schema import OrderSchemaGet
 
 from ..cart.models import Cart
+from ..cart.models import CartHasDosed
 from ..user.models import User
 from ..drug.models import Dosed
 
@@ -24,6 +25,8 @@ def order_post_get():
             email=current_identity_email).first()
         cart_data = session.query(Cart).filter_by(
             cart_id=tmp).first()
+        cart_dosed = session.query(CartHasDosed).filter_by(
+            fk_cart_id=tmp).all()
     except ValidationError as e:
         rv = dict({'message': e.normalized_messages()})
         return rv, 400, {'content-type': 'application/json'}
@@ -33,14 +36,18 @@ def order_post_get():
         if cart_data:
             if request.method == 'POST':
                 try:
-                    result = Dosed.query.with_entities(
-                        func.sum(Dosed.dosed_price).label("mySum")
-                    ).filter_by(
-                        dosed_id=cart_data.fk_dosed_id
-                    )
-                    request.json['fk_user_id'] = user_data.user_id
-                    request.json['total'] = result
+                    total_1 = 0.0
+                    for i in cart_dosed:
+                        # print(i.fk_dosed_id)
+                        tmp = i.fk_dosed_id
+                        result = session.query(Dosed).with_entities(
+                            func.sum(Dosed.dosed_price).label("mySum")
+                        ).filter_by(dosed_id=tmp).scalar()
+                        total_1 += result
 
+                    request.json.pop('fk_cart_id')
+                    request.json['total'] = total_1
+                    request.json['fk_user_id'] = user_data.user_id
                     my_post = Order(**request.json)
                     session.add(my_post)
                     session.commit()

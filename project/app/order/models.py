@@ -1,5 +1,6 @@
 from extensions import db
 from imports import *
+from ..cart.models import Cart
 
 
 class Order(db.Model):
@@ -10,14 +11,14 @@ class Order(db.Model):
                            ForeignKey("user.user_id", ondelete='CASCADE'),
                            primary_key=True,
                            nullable=False)
-    fk_cart_id = db.Column(Integer,
-                           ForeignKey("cart.cart_id", ondelete='RESTRICT'),
-                           nullable=False)
+
     date_of_purchase = db.Column(Date, nullable=False)
     total = db.Column(Float, nullable=False)
     user = sqlalchemy.orm.relationship('User')
-    cart = sqlalchemy.orm.relationship('Cart')
+    # cart = sqlalchemy.orm.relationship('Cart')
 
     def __init(self, date_of_purchase, total):
         self.date_of_purchase = date_of_purchase
         self.total = total
+
+

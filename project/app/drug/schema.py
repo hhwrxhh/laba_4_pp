@@ -51,3 +51,26 @@ class DosedSchemaGet(ma.Schema):
 
 class UserGetId(ma.Schema):
     fk_user_id = fields.Integer(load_only=True, required=True)
+
+
+class DetailsSchema(Schema):
+    quantity = fields.Integer(validate=validate.Range(min=1), required=True)
+    custom_id = fields.Integer(validate=validate.Range(min=1), required=True)
+    menu_id = fields.Integer(validate=validate.Range(min=1), required=True)
+
+
+class CustomSchema(Schema):
+    id = fields.Integer(validate=validate.Range(min=0))
+    price = fields.Float(validate=validate.Range(min=0), required=True)
+    time = fields.DateTime(format='%Y-%m-%dT%H:%M:%S',
+                           default=datetime.datetime.now(),
+                           validate=lambda x: x <= datetime.datetime.now())
+    status = fields.Str(dump_default='registered',
+                        validate=validate.OneOf(['registered', 'processed', 'accepted',
+                                                'prepared', 'delivered', 'done', 'cancelled']),
+                        required=False)
+    address_id = fields.Integer(validate=validate.Range(min=0), required=True)
+    user_id = fields.Integer(validate=validate.Range(min=0), required=True)
+    # details = fields.Dict(fields.Str(), fields.Integer()), required=True)
+    # details = fields.List(fields.Nested(DetailsSchema()), many=True, required=True)
+    # details = fields.List(fields.Str(), required=True)
